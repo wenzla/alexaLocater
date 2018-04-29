@@ -45,27 +45,6 @@ const handlers = {
         console.log('Setup Intent');
         this.emit(':ask', 'You have not set up a room. To set up a name, say, you are in the, and the room i am in.');
     },
-    'DeleteIntent': function () {
-        console.log('Delete Intent');
-        
-        var ddb = new AWS.DynamoDB.DocumentClient({region:'us-east-1'});
-        var params = {
-            TableName: table, 
-            Key:{
-                'UserId': deviceId,
-                }
-        }; 
-        
-        ddb.delete(params, function(err, data) {
-            if (err) {
-                console.log('error: ' + JSON.stringify(err, null, 2));
-            }else{
-               console.log('Delete successful.');            
-            }
-        });
-        this.emit(':tell', 'Name deleted, Goodbye!');
-        this.emit(':responseReady'); 
-    },
     // This route occurs when you say 'you are in the {room}'
     'RememberName': function () {      
         console.log('RememberName Intent');    
